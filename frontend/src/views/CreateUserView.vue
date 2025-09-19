@@ -80,10 +80,16 @@ const user = ref<Omit<User, 'id'>>({
   email: ''
 })
 
-async function submitForm() {
+async function submitForm(e: Event) {
+  const form = e.target as HTMLFormElement
+  if (!form.checkValidity()) {
+    // Si el form no es válido, deja que el navegador muestre los mensajes
+    form.reportValidity()
+    return
+  }
+
   try {
     const newUser = await createUser(user.value)
-    // Redirigir a detalle del usuario creado
     router.push(`/users/${newUser.id}`)
   } catch (err) {
     console.error('Error al crear usuario:', err)
