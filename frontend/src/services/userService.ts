@@ -25,3 +25,13 @@ export async function fetchUsers(): Promise<User[]> {
   }
 }
 
+export async function createUser(user: Omit<User, 'id'>): Promise<User> {
+  try {
+    const response = await apiService.post('/users', user)
+    return response.data as User
+  } catch (error) {
+    const apiError = toApiError(error)
+    console.error('Error al crear el usuario:', apiError.message)
+    throw apiError
+  }
+}

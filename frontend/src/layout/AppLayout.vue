@@ -18,7 +18,7 @@
             <RouterLink class="nav-link" to="/" @click="open = false">Home</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/other" @click="open = false">Other</RouterLink>
+            <RouterLink class="nav-link" to="/users" @click="open = false">Users</RouterLink>
           </li>
         </ul>
       </nav>

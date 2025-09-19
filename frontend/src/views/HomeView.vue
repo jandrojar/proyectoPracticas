@@ -10,7 +10,7 @@
 import { useRouter } from 'vue-router'
 const router = useRouter()
 function goToOther() {
-  router.push('/other')
+  router.push('/users')
 }
 </script>
 

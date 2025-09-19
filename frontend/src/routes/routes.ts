@@ -2,15 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router'
 import defaultLayout from '../layout/AppLayout.vue'
 import HomeView from '../views/HomeView.vue'
 import UserListView from '../views/UserListView.vue'
+import CreateUserView from '../views/CreateUserView.vue'
 
 const routes = [
   { path: '/',
     component: HomeView,
     meta: {layout: defaultLayout}
   },
-  { path: '/other',
+  { path: '/users',
     component: UserListView,
-    meta: {layout: defaultLayout}}
+    meta: {layout: defaultLayout}
+  },
+  { path: '/users/create',
+    component: CreateUserView,
+    meta: {layout: defaultLayout}
+  }
 ]
 
 const router = createRouter({

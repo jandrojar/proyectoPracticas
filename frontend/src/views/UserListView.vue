@@ -1,11 +1,27 @@
-<template> <!--Esto está en el body de index.html -->
-  <div v-if="errorMsg" class="alert alert-danger" role="alert">
+<template>
+  <section class="users">
+    <!-- Mensaje de error -->
+    <div v-if="errorMsg" class="alert alert-danger" role="alert">
       {{ errorMsg }}
-  </div>
-    <UserTable v-else-if="(users.length >0)" :users="users"/>
-    <div v-else >
+    </div>
+
+    <!-- Tabla de usuarios -->
+    <div v-else-if="users.length > 0">
+      <UserTable :users="users" />
+
+      <!-- Botón debajo de la tabla -->
+      <div class="mt-3">
+        <RouterLink to="/users/create" class="btn btn-primary">
+          Crear usuario
+        </RouterLink>
+      </div>
+    </div>
+
+    <!-- Estado de carga -->
+    <div v-else>
       Cargando usuarios...
     </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -14,6 +30,7 @@ import { fetchUsers } from '../services/userService'
 import type { User } from '../types/types'
 import type { ApiError } from '../types/types'
 import UserTable from '../components/UserTable.vue'
+import { RouterLink } from 'vue-router'
 
 const users = ref<User[]>([])
 const errorMsg = ref<ApiError | null>(null)

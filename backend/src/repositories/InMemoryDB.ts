@@ -64,7 +64,7 @@ export default class InMemoryDB<T extends { id?: string }> {
     return this.#storage.delete(id);
   }
 
-    createMany(documents: T[]): T[] {
+  createMany(documents: T[]): T[] {
     return documents.map(doc => this.create(doc));
   }
 }
