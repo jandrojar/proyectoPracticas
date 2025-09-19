@@ -90,7 +90,7 @@ async function submitForm(e: Event) {
 
   try {
     const newUser = await createUser(user.value)
-    router.push(`/users/${newUser.id}`)
+    router.push(`/users/${newUser.id}/edit`)
   } catch (err) {
     console.error('Error al crear usuario:', err)
     alert('Error al crear usuario')

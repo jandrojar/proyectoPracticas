@@ -16,6 +16,11 @@
             {{ user.age }}
           </td>
           <td>{{ user.email }}</td>
+          <td>
+          <button class="btn btn-danger btn-sm" @click="$emit('delete-user', user.id)">
+            Eliminar
+          </button>
+        </td>
         </tr>
       </tbody>
 </table>
@@ -27,5 +32,10 @@ import type { User } from '../types/types'
 // Define the props for the component
 defineProps<{
   users: User[]
+}>()
+
+// Define emits
+defineEmits<{
+  (e: 'delete-user', id: string): void
 }>()
 </script>
