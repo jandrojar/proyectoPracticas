@@ -10,7 +10,7 @@ import { toApiError } from './apiService'
 export async function fetchUsers(): Promise<User[]> {
   try {
     const response = await apiService.get('/users')
-    const data = response.data.data
+    const data = response.data
 
     if(Array.isArray(data)){
       return data as User[]
@@ -25,20 +25,3 @@ export async function fetchUsers(): Promise<User[]> {
   }
 }
 
-// https://jsonplaceholder.typicode.com/users-inventado
-
-// https://apinoexiste.com
-
-/**
- * Mock function to simulate fetching users from an API.
-export async function fetchUsers(): Promise<User[]> {
-  return [
-      { id: '123aw', name: 'Alice Alonso', email: 'aliciaalonso@company.com'},
-      { id: '456as', name: 'Carlos Blanco', email: 'carlosblanco@company.com' },
-      { id: '789df', name: 'Antonio Delgado', email:'antoniodelgado@company.com' },
-      { id: '321gh', name: 'Elena García', email:'elenagarcia@company.com' },
-      { id: '654jk', name: 'Marta Jiménez', email:'martajimenez@company.com' }
-  ]
-
-}
-  */

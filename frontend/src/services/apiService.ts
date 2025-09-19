@@ -4,7 +4,7 @@ import type {ApiError} from '../types/types'
 
 
 const apiService = axios.create({
-  baseURL: 'https://fooapi.com/api',
+  baseURL: 'http://localhost:3000',
   headers:{
     'Content-Type': 'application/json'
   },
