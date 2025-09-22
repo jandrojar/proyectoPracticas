@@ -33,7 +33,7 @@
       </div>
 
       <!-- Error -->
-      <div v-if="errorMessage" class="alert alert-danger">
+      <div v-if="errorMessage" class="alert alert-danger mx-auto text-center" style="max-width: 300px;">
         {{ errorMessage }}
       </div>
 

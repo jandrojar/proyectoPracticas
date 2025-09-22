@@ -17,7 +17,7 @@ export function toApiError(error: unknown): ApiError {
   if(e.response){
     const status = e.response.status
 
-    const backendMessage = e.response.data?.error
+    const backendMessage = e.response.data?.error // Optional chaining: if data or error is undefined, it won't throw an error
     if (backendMessage) {
       return { message: backendMessage, status }
     }
