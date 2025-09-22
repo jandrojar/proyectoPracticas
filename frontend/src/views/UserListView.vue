@@ -18,6 +18,9 @@
         <RouterLink to="/users/create" class="btn btn-primary">
           Crear usuario
         </RouterLink>
+        <RouterLink to="/" class="btn btn-secondary ms-2">
+          Volver al inicio
+        </RouterLink>
       </div>
     </div>
 

@@ -44,7 +44,7 @@ export async function createUser(ctx: Context): Promise<void> {
         // Check for valid age
         if (typeof userData.age !== 'number' || userData.age < 18 || userData.age > 120) {
             ctx.status = 400;
-            ctx.body = { error: 'La edad debe ser un número entre 18 y 120' };
+            ctx.body = { error: 'La edad debe estar comprendida entre los 18 y 120 años' };
             return;
         }
 
