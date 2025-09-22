@@ -52,6 +52,11 @@
         />
       </div>
 
+      <!-- Error -->
+      <div v-if="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
       <!-- Botones -->
       <div class="d-flex gap-2 justify-content-center mb-5 mt-4">
         <button type="submit" class="btn btn-primary">
@@ -69,7 +74,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { createUser } from '../services/userService'
-import type { User } from '../types/types'
+import type { User, ApiError } from '../types/types'
 
 const router = useRouter()
 
@@ -80,8 +85,10 @@ const user = ref<Omit<User, 'id'>>({
   email: ''
 })
 
+const errorMessage = ref<string>('')
+
 async function submitForm(e: Event) {
-  const form = e.target as HTMLFormElement
+  const form = e.target as HTMLFormElement //TYPESCRIPT
   if (!form.checkValidity()) {
     // Si el form no es válido, deja que el navegador muestre los mensajes
     form.reportValidity()
@@ -92,8 +99,9 @@ async function submitForm(e: Event) {
     const newUser = await createUser(user.value)
     router.push(`/users/${newUser.id}/edit`)
   } catch (err) {
-    console.error('Error al crear usuario:', err)
-    alert('Error al crear usuario')
+    const apiError = err as ApiError
+    console.error('Error al crear usuario:', apiError)
+    errorMessage.value = apiError.message || 'Ha ocurrido un error'
   }
 }
 </script>

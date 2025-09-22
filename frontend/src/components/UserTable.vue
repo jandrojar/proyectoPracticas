@@ -6,6 +6,7 @@
       <th>Apellido</th>
       <th>Edad</th>
       <th>Email</th>
+      <th>Acciones</th>
     </tr>
   </thead>
       <tbody>
@@ -20,6 +21,9 @@
           <button class="btn btn-danger btn-sm" @click="$emit('delete-user', user.id)">
             Eliminar
           </button>
+          <RouterLink :to="`/users/${user.id}/edit`" class="btn btn-warning btn-sm ms-2">
+            Editar
+          </RouterLink>
         </td>
         </tr>
       </tbody>
@@ -28,6 +32,7 @@
 
 <script setup lang="ts">
 import type { User } from '../types/types'
+import { RouterLink } from 'vue-router'
 
 // Define the props for the component
 defineProps<{

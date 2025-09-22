@@ -12,10 +12,16 @@ const apiService = axios.create({
 })
 
 export function toApiError(error: unknown): ApiError {
-  const e = error as AxiosError
+  const e = error as AxiosError<{error: string}>
 
   if(e.response){
     const status = e.response.status
+
+    const backendMessage = e.response.data?.error
+    if (backendMessage) {
+      return { message: backendMessage, status }
+    }
+
     let message: string
     switch(status){
       case 400: message = 'Solicitud incorrecta (400)'; break

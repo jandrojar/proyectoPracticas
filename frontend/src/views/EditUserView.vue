@@ -27,6 +27,11 @@
         <input id="email" v-model="user.email" type="email" class="form-control" required />
       </div>
 
+      <!-- Error -->
+      <div v-if="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
       <!-- Botones -->
       <div class="d-flex gap-2 justify-content-center mb-5 mt-4">
         <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -40,7 +45,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { updateUser, findUserById } from '../services/userService'
-import type { User } from '../types/types'
+import type { User, ApiError } from '../types/types'
 
 const router = useRouter()
 const route = useRoute()
@@ -52,12 +57,13 @@ const user = ref<Omit<User, 'id'>>({
   email: ''
 })
 
+const errorMessage = ref<string>('')
+
 // Cargar datos al entrar
 onMounted(async () => {
   try {
     const id = route.params.id as string
     const existingUser = await findUserById(id)
-
     user.value = {
       name: existingUser.name,
       lastname: existingUser.lastname,
@@ -65,8 +71,9 @@ onMounted(async () => {
       email: existingUser.email
     }
   } catch (err) {
-    console.error('Error al cargar usuario:', err)
-    alert('Error al cargar usuario')
+    const apiError = err as ApiError
+    console.error('Error al cargar usuario:', apiError)
+    errorMessage.value = apiError.message
   }
 })
 
@@ -80,11 +87,11 @@ async function submitForm(e: Event) {
   try {
     const id = route.params.id as string
     await updateUser(id, user.value)
-    // Redirigir a la lista con query param success
     router.push({ path: '/users', query: { success: '1' } })
   } catch (err) {
-    console.error('Error al actualizar usuario:', err)
-    alert('Error al actualizar usuario')
+    const apiError = err as ApiError
+    console.error('Error al actualizar usuario:', apiError)
+    errorMessage.value = apiError.message
   }
 }
 </script>
