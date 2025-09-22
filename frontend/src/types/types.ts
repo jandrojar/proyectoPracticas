@@ -8,5 +8,5 @@ export interface User {
 
 export interface ApiError {
   message: string
-  status?: number // El status es opcional porque puede no estar presente
+  status?: number // Optional because not all errors may have a status code
 }

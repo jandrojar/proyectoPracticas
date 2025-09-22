@@ -32,11 +32,11 @@ export function toApiError(error: unknown): ApiError {
       case 503: message = 'Servicio no disponible (503)'; break
       default:  message = `Error del servidor (${status})`
     }
-    return {message, status} // Devolvemos el objeto ApiError
+    return {message, status} // return ApiError object
   } else if (e.request) {
-    return {message: 'No se recibió respuesta del servidor'} // No hay status porque no hubo respuesta
+    return {message: 'No se recibió respuesta del servidor'} // No status
   } else {
-    return {message: e.message} // Tampoco hay status, es un error de configuración
+    return {message: e.message}
   }
 }
 

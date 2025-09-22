@@ -1,5 +1,10 @@
 <template>
   <section class="container mt-4">
+
+    <div v-if="route.query.success" class="alert alert-success" role="alert">
+      Usuario creado correctamente
+    </div>
+
     <h1 class="mb-4 text-light">Editar usuario</h1>
 
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>

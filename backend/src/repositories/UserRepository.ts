@@ -1,11 +1,14 @@
 import InMemoryDB from './InMemoryDB'
 import { User } from '../models/user'
 
+// User repository class extending the generic InMemoryDB for User types
 export default class UserRepository extends InMemoryDB<User> {
   constructor(){
     super();
     this.seedUsers();
   }
+
+  // Seed users with some initial data
   private seedUsers(): User[] {
     const sampleUsers: User[] = [
       {

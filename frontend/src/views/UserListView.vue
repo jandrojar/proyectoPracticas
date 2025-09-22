@@ -1,19 +1,19 @@
 <template>
   <section class="users">
-    <!-- Mensaje de éxito -->
+    <!-- Edit success message -->
     <div v-if="route.query.success" class="alert alert-success" role="alert">
       Usuario actualizado correctamente
     </div>
-    <!-- Mensaje de error -->
+    <!-- Error messages -->
     <div v-if="errorMsg" class="alert alert-danger" role="alert">
       {{ errorMsg }}
     </div>
 
-    <!-- Tabla de usuarios -->
+    <!-- Users table -->
     <div v-else-if="users.length > 0">
       <UserTable :users="users" @delete-user="handleDelete" />
 
-      <!-- Botón debajo de la tabla -->
+      <!-- Create button -->
       <div class="mt-3">
         <RouterLink to="/users/create" class="btn btn-primary">
           Crear usuario
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <!-- Estado de carga -->
+    <!-- Loading -->
     <div v-else>
       Cargando usuarios...
     </div>
@@ -44,7 +44,7 @@ async function handleDelete(id: string) {
   if (!confirm('¿Seguro que quieres eliminar este usuario?')) return
   try {
     await deleteUser(id)
-    // Actualizar la lista tras borrar
+    // Update after deletion
     users.value = await fetchUsers()
   } catch (error: any) {
     errorMsg.value = error.message

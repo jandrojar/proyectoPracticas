@@ -11,6 +11,7 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization'],
 }))
 
+// Body parser middleware
 app.use(bodyParser());
 
 // Middleware to log requests

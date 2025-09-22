@@ -1,9 +1,10 @@
 <template>
   <section class="container mt-4">
+
     <h1 class="mb-4 text-light">Crear usuario</h1>
 
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>
-      <!-- Nombre -->
+      <!-- Name -->
       <div class="mb-3">
         <label for="name" class="form-label text-light">Nombre</label>
         <input
@@ -15,7 +16,7 @@
         />
       </div>
 
-      <!-- Apellido -->
+      <!-- Surname -->
       <div class="mb-3">
         <label for="surname" class="form-label text-light">Apellido</label>
         <input
@@ -27,7 +28,7 @@
         />
       </div>
 
-      <!-- Edad -->
+      <!-- Age -->
       <div class="mb-3">
         <label for="age" class="form-label text-light">Edad</label>
         <input
@@ -57,7 +58,7 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Botones -->
+      <!-- Buttons -->
       <div class="d-flex gap-2 justify-content-center mb-5 mt-4">
         <button type="submit" class="btn btn-primary">
           Guardar
@@ -97,7 +98,7 @@ async function submitForm(e: Event) {
 
   try {
     const newUser = await createUser(user.value)
-    router.push(`/users/${newUser.id}/edit`)
+    router.push({ path: `/users/${newUser.id}/edit`, query: { success: '1'} })
   } catch (err) {
     const apiError = err as ApiError
     console.error('Error al crear usuario:', apiError)

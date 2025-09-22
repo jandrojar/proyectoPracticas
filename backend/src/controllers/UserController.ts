@@ -2,11 +2,17 @@ import { Context } from 'koa';
 import UserRepository from '../repositories/UserRepository';
 import { User } from '../models/user';
 
-
+// User repository instance
 const userRepository = new UserRepository();
 export async function getAllUsers(ctx: Context): Promise<void> {
     ctx.status = 200;
     const users = await userRepository.findAll();
+
+    if(users.length === 0){
+        ctx.status = 404;
+        ctx.body = {error:'No hay usuarios registrados'};
+        return;
+    }
     ctx.body = users;
 }
 
