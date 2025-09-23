@@ -112,6 +112,7 @@ export async function updateUser(ctx: Context): Promise<void> {
 
   // Validate age
   if (typeof age !== 'number' || age < 18 || age > 120) {
+
     ctx.status = 400;
     ctx.body = { error: 'La edad debe estar comprendida entre los 18 y 120 años' };
     return;

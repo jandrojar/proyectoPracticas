@@ -16,7 +16,7 @@ app.use(bodyParser());
 
 // Middleware to log requests
 app.use(async (ctx, next) => {
-    console.log(`Request received from path: ${ctx.path}`);
+    console.log(`Request received from path: ${ctx.path}, method: ${ctx.method}`);
     await next();
 })
 
