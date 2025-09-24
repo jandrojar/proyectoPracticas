@@ -6,7 +6,7 @@ import apiRouter from './routes/routes';
 const app = new Koa();
 
 app.use(cors({
-  origin: 'http://localhost:5173', // * to allow all origins
+  origin: 'http://localhost:8081', // * to allow all origins
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE',],
   allowHeaders: ['Content-Type', 'Authorization'],
 }))

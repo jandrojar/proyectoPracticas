@@ -1,0 +1,26 @@
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:5173"
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules # Keep node_modules in a separate volume to prevent overwriting during local development
+
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules # Keep node_modules in a separate volume to prevent overwriting during local development
+    environment:
+      - NODE_ENV=development
