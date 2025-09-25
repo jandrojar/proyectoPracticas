@@ -1,12 +1,11 @@
 import { Context } from 'koa';
-import UserRepository from '../repositories/UserRepository';
+import { userRepo } from '../repositories/index';
 import { User } from '../models/user';
 
-// User repository instance
-const userRepository = new UserRepository();
+
 export async function getAllUsers(ctx: Context): Promise<void> {
     ctx.status = 200;
-    const users = await userRepository.findAll();
+    const users = await userRepo.findAll();
 
     if(users.length === 0){
         ctx.status = 404;
@@ -18,7 +17,7 @@ export async function getAllUsers(ctx: Context): Promise<void> {
 
 export async function getUserById(ctx: Context): Promise<void> {
     const id = ctx.params.id;
-    const user = userRepository.findById(id);
+    const user = userRepo.findById(id);
 
     if (!user) {
         ctx.status = 404;
@@ -68,14 +67,14 @@ export async function createUser(ctx: Context): Promise<void> {
     }
 
     // Validate unique email
-    if (userRepository.findAll().some(u => u.email === email)) {
+    if (userRepo.findAll().some(u => u.email === email)) {
       ctx.status = 409;
       ctx.body = { error: 'El email ya existe, introduzca otro, por favor' };
       return;
     }
 
     // Create normalized user
-    const newUser = userRepository.create({ ...userData, name, lastname, email, age } as User);
+    const newUser = userRepo.create({ ...userData, name, lastname, email, age } as User);
 
     ctx.status = 201;
     ctx.body = newUser;
@@ -91,7 +90,7 @@ export async function updateUser(ctx: Context): Promise<void> {
   const userData = ctx.request.body as Partial<User>;
 
   // Check if user exists
-  const existingUser = userRepository.findById(id);
+  const existingUser = userRepo.findById(id);
   if (!existingUser) {
     ctx.status = 404;
     ctx.body = { error: 'Usuario no encontrado' };
@@ -133,7 +132,7 @@ export async function updateUser(ctx: Context): Promise<void> {
   }
 
   // Validate unique email (excluding current user)
-  const emailAlreadyExists = userRepository.findAll().some(u => u.email === email && u.id !== id);
+  const emailAlreadyExists = userRepo.findAll().some(u => u.email === email && u.id !== id);
   if (emailAlreadyExists) {
     ctx.status = 409;
     ctx.body = { error: 'El email ya existe, introduzca otro, por favor' };
@@ -141,14 +140,14 @@ export async function updateUser(ctx: Context): Promise<void> {
   }
 
   // Update user with normalized values
-  const updatedUser = await userRepository.update(id, { ...userData, name, lastname, email, age } as Partial<User>);
+  const updatedUser = await userRepo.update(id, { ...userData, name, lastname, email, age } as Partial<User>);
   ctx.status = 200;
   ctx.body = updatedUser;
 }
 
 export async function deleteUser(ctx: Context): Promise<void> {
     const id = ctx.params.id;
-    const deleted = await userRepository.delete(id);
+    const deleted = await userRepo.delete(id);
     if (!deleted) {
         ctx.status = 404;
         ctx.body = { error: 'Usuario no encontrado' };

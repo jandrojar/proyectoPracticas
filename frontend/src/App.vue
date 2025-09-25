@@ -13,7 +13,7 @@ import defaultLayout from './layout/AppLayout.vue'
 const route = useRoute()
 
 const layout = computed(() => {
-  return route.meta.layout || defaultLayout
+  return route.meta.layout ?? 'div'
 })
 </script>
 

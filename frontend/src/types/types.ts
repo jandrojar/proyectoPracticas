@@ -4,6 +4,12 @@ export interface User {
   lastname:string
   age:number
   email:string
+  password:string
+}
+
+export interface LoginResponse {
+  user: User
+  token: string
 }
 
 export interface ApiError {

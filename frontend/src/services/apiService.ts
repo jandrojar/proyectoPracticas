@@ -4,12 +4,23 @@ import type {ApiError} from '../types/types'
 
 
 const apiService = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: 'http://localhost:3000',
   headers:{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+
   },
   timeout: 5000
 })
+
+apiService.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token")
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
+export default apiService
 
 export function toApiError(error: unknown): ApiError {
   const e = error as AxiosError<{error: string}>
@@ -40,4 +51,3 @@ export function toApiError(error: unknown): ApiError {
   }
 }
 
-export default apiService

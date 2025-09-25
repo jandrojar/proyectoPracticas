@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import defaultLayout from '../layout/AppLayout.vue'
+import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
 import UserListView from '../views/UserListView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
 import EditUserView from '../views/EditUserView.vue'
 
 const routes = [
+
+  { path: '/login',
+    component: LoginView,
+  },
   { path: '/',
     component: HomeView,
     meta: {layout: defaultLayout}
